@@ -1,7 +1,7 @@
-FROM alpine:latest
+FROM python:3-alpine
 
-ADD entrypoint.sh /entrypoint.sh
+RUN pip install requests
 
-RUN apk add --no-cache bash
+ADD entrypoint.py /entrypoint.py
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.py"]

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+docker build -t action.slack:latest . && \
+    docker run -e GITHUB_WORKSPACE="/github/workspace" \
+    -e GITHUB_ACTION="" \
+    -e GITHUB_SHA="" \
+    -e GITHUB_REF="" \
+    -e GITHUB_EVENT_PATH="" \
+    -e GITHUB_EVENT_NAME="" \
+    -e GITHUB_ACTOR="" \
+    -e GITHUB_REPOSITORY="" \
+    -e GITHUB_BASE_REF= \
+    -e GITHUB_HEAD_REF= \
+    -e GITHUB_WORKFLOW="" \
+    -e INPUT_SLACK_TOKEN="xoxb-313654535412-696241473073-gN3qkxQBIKo5Zcu1fMTeGEOr" \
+    -e INPUT_DATA="{\"channel\":\"CJA13HQ5P\",\"text\":\"Hello world\"}" \
+    --workdir "/github/workspace" \
+    --rm \
+    -v "$(dirname "$(pwd)")":"/github/workspace" \
+    -v "$(pwd)/.private":"/github/workflow" \
+    action.slack:latest
