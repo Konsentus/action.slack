@@ -10,7 +10,13 @@ def main():
     token = getInput('INPUT_SLACK_TOKEN')
     data = json.loads(getInput('INPUT_DATA'))
 
-    postMessage(data, token)
+    response = postMessage(data, token)
+
+    if response.status_code >= 400:
+        print(f'Slack Message Failed, response: {response.text}')
+        sys.exit(1)
+
+    print(f'Slack Message Succeeded, response: {response.text}')
 
 
 def getInput(var):
@@ -36,10 +42,13 @@ def postMessage(messageData, token):
     }
     data.update(messageData)
 
+    print('sending:')
+    print(messageData)
+
     return requests.post(
         'https://slack.com/api/chat.postMessage',
         data=json.dumps(data),
-        headers=headers
+        headers=headers,
     )
 
 
