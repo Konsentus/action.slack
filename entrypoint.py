@@ -13,10 +13,12 @@ def main():
     response = postMessage(data, token)
 
     if response.status_code >= 400:
-        print(f'Slack Message Failed, response: {response.text}')
+        print(
+            f'Slack Message Failed ({response.status_code}), response: {response.text}')
         sys.exit(1)
 
-    print(f'Slack Message Succeeded, response: {response.text}')
+    print(
+        f'Slack Message Succeeded ({response.status_code}), response: {response.text}')
 
 
 def getInput(var):
